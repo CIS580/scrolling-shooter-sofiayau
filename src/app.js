@@ -11,6 +11,16 @@ const BulletPool = require('./bullet_pool');
 /* Global variables */
 var canvas = document.getElementById('screen');
 var game = new Game(canvas, update, render);
+var backgrounds = [
+  new Image(),
+  new Image(),
+  new Image(),
+  new Image()
+];
+backgrounds[0].src = 'assets/shapesx.png';
+backgrounds[1].src = 'assets/shapesy.png';
+backgrounds[2].src = 'assets/shapesz.png';
+backgrounds[3].src = 'assets/shapesw.png';
 var input = {
   up: false,
   down: false,
@@ -21,7 +31,11 @@ var camera = new Camera(canvas);
 var bullets = new BulletPool(10);
 var missiles = [];
 var player = new Player(bullets, missiles);
-
+var camera = new Camera(canvas);
+var reticule = {
+  x: 0,
+  y: 0
+}
 /**
  * @function onkeydown
  * Handles keydown events
@@ -138,7 +152,7 @@ function render(elapsedTime, ctx) {
   ctx.fillRect(0, 0, 1024, 786);
 
   // TODO: Render background
-
+  renderBackgrounds(elapsedTime, ctx);
   // Transform the coordinate system using
   // the camera position BEFORE rendering
   // objects in the world - that way they
@@ -152,6 +166,27 @@ function render(elapsedTime, ctx) {
   // Render the GUI without transforming the
   // coordinate system
   renderGUI(elapsedTime, ctx);
+}
+
+function renderBackgrounds(elapsedTime, ctx) {
+  ctx.save();
+
+  // The background scrolls at 2% of the foreground speed
+  ctx.translate(-camera.x * 0.2, 0);
+  ctx.drawImage(backgrounds[2], 0, 0);
+  ctx.restore();
+
+  // The midground scrolls at 60% of the foreground speed
+  ctx.save();
+  ctx.translate(-camera.x * 0.6, 0);
+  ctx.drawImage(backgrounds[1], 0, 0);
+  ctx.restore();
+
+  // The foreground scrolls in sync with the camera
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  ctx.drawImage(backgrounds[0], 0, 0);
+  ctx.restore();
 }
 
 /**
@@ -181,5 +216,16 @@ function renderWorld(elapsedTime, ctx) {
   * @param {CanvasRenderingContext2D} ctx
   */
 function renderGUI(elapsedTime, ctx) {
+  ctx.save();
+  ctx.translate(reticule.x, reticule.y);
+  ctx.beginPath();
+  ctx.arc(0, 0, 10, 0, 2*Math.PI);
+  ctx.moveTo(0, 15);
+  ctx.lineTo(0, -15);
+  ctx.moveTo(15, 0);
+  ctx.lineTo(-15, 0);
+  ctx.strokeStyle = '#00ff00';
+  ctx.stroke();
+  ctx.restore();
   // TODO: Render the GUI
 }

@@ -12,6 +12,16 @@ const BulletPool = require('./bullet_pool');
 /* Global variables */
 var canvas = document.getElementById('screen');
 var game = new Game(canvas, update, render);
+var backgrounds = [
+  new Image(),
+  new Image(),
+  new Image(),
+  new Image()
+];
+backgrounds[0].src = 'assets/shapesx.png';
+backgrounds[1].src = 'assets/shapesy.png';
+backgrounds[2].src = 'assets/shapesz.png';
+backgrounds[3].src = 'assets/shapesw.png';
 var input = {
   up: false,
   down: false,
@@ -22,7 +32,11 @@ var camera = new Camera(canvas);
 var bullets = new BulletPool(10);
 var missiles = [];
 var player = new Player(bullets, missiles);
-
+var camera = new Camera(canvas);
+var reticule = {
+  x: 0,
+  y: 0
+}
 /**
  * @function onkeydown
  * Handles keydown events
@@ -139,7 +153,7 @@ function render(elapsedTime, ctx) {
   ctx.fillRect(0, 0, 1024, 786);
 
   // TODO: Render background
-
+  renderBackgrounds(elapsedTime, ctx);
   // Transform the coordinate system using
   // the camera position BEFORE rendering
   // objects in the world - that way they
@@ -153,6 +167,27 @@ function render(elapsedTime, ctx) {
   // Render the GUI without transforming the
   // coordinate system
   renderGUI(elapsedTime, ctx);
+}
+
+function renderBackgrounds(elapsedTime, ctx) {
+  ctx.save();
+
+  // The background scrolls at 2% of the foreground speed
+  ctx.translate(-camera.x * 0.2, 0);
+  ctx.drawImage(backgrounds[2], 0, 0);
+  ctx.restore();
+
+  // The midground scrolls at 60% of the foreground speed
+  ctx.save();
+  ctx.translate(-camera.x * 0.6, 0);
+  ctx.drawImage(backgrounds[1], 0, 0);
+  ctx.restore();
+
+  // The foreground scrolls in sync with the camera
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  ctx.drawImage(backgrounds[0], 0, 0);
+  ctx.restore();
 }
 
 /**
@@ -182,10 +217,21 @@ function renderWorld(elapsedTime, ctx) {
   * @param {CanvasRenderingContext2D} ctx
   */
 function renderGUI(elapsedTime, ctx) {
+  ctx.save();
+  ctx.translate(reticule.x, reticule.y);
+  ctx.beginPath();
+  ctx.arc(0, 0, 10, 0, 2*Math.PI);
+  ctx.moveTo(0, 15);
+  ctx.lineTo(0, -15);
+  ctx.moveTo(15, 0);
+  ctx.lineTo(-15, 0);
+  ctx.strokeStyle = '#00ff00';
+  ctx.stroke();
+  ctx.restore();
   // TODO: Render the GUI
 }
 
-},{"./bullet_pool":2,"./camera":3,"./game":4,"./player":6,"./vector":8}],2:[function(require,module,exports){
+},{"./bullet_pool":2,"./camera":3,"./game":4,"./player":6,"./vector":7}],2:[function(require,module,exports){
 "use strict";
 
 /**
@@ -352,7 +398,7 @@ Camera.prototype.toWorldCoordinates = function(screenCoordinates) {
   return Vector.add(screenCoordinates, this);
 }
 
-},{"./vector":8}],4:[function(require,module,exports){
+},{"./vector":7}],4:[function(require,module,exports){
 "use strict";
 
 /**
@@ -411,83 +457,8 @@ Game.prototype.loop = function(newTime) {
 }
 
 },{}],5:[function(require,module,exports){
-"use strict";
 
-/* Classes and Libraries */
-const Vector = require('./vector');
-const SmokeParticles = require('./smoke_particles');
-
-/* Constants */
-const MISSILE_SPEED = 8;
-
-/**
- * @module Missile
- * A class representing a player's missile
- */
-module.exports = exports = Missile;
-
-/**
- * @constructor Missile
- * Creates a missile
- * @param {Vector} position the position of the missile
- * @param {Object} target the target of the missile
- */
-function Missile(position, target) {
-  this.position = {x: position.x, y:position.y}
-  this.target = target;
-  this.angle = 0;
-  this.img = new Image()
-  this.img.src = 'assets/helicopter.png';
-  this.smokeParticles = new SmokeParticles(400);
-}
-
-/**
- * @function update
- * Updates the missile, steering it towards a locked
- * target or straight ahead
- * @param {DOMHighResTimeStamp} elapedTime
- */
-Missile.prototype.update = function(elapsedTime) {
-
-  // set the velocity
-  var velocity = {x: MISSILE_SPEED, y: 0}
-  if(this.target) {
-    var direction = Vector.subtract(this.position, this.target);
-    velocity = Vector.scale(Vector.normalize(direction), MISSILE_SPEED);
-  }
-
-  // determine missile angle
-  this.angle = Math.atan2(velocity.y, velocity.x);
-
-  // move the missile
-  this.position.x += velocity.x;
-  this.position.y += velocity.y;
-
-  // emit smoke
-  this.smokeParticles.emit(this.position);
-
-  // update smoke
-  this.smokeParticles.update(elapsedTime);
-}
-
-/**
- * @function render
- * Renders the missile in world coordinates
- * @param {DOMHighResTimeStamp} elapsedTime
- * @param {CanvasRenderingContext2D} ctx
- */
-Missile.prototype.render = function(elapsedTime, ctx) {
-  // Draw Missile
-  ctx.save();
-  ctx.translate(this.position.x, this.position.y);
-  ctx.rotate(this.angle);
-  ctx.drawImage(this.img, 76, 56, 16, 8, 0, -4, 16, 8);
-  ctx.restore();
-  // Draw Smoke
-  this.smokeParticles.render(elapsedTime, ctx);
-}
-
-},{"./smoke_particles":7,"./vector":8}],6:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 
 /* Classes and Libraries */
@@ -591,113 +562,7 @@ Player.prototype.fireMissile = function() {
   }
 }
 
-},{"./missile":5,"./vector":8}],7:[function(require,module,exports){
-"use strict";
-
-/**
- * @module SmokeParticles
- * A class for managing a particle engine that
- * emulates a smoke trail
- */
-module.exports = exports = SmokeParticles;
-
-/**
- * @constructor SmokeParticles
- * Creates a SmokeParticles engine of the specified size
- * @param {uint} size the maximum number of particles to exist concurrently
- */
-function SmokeParticles(maxSize) {
-  this.pool = new Float32Array(3 * maxSize);
-  this.start = 0;
-  this.end = 0;
-  this.wrapped = false;
-  this.max = maxSize;
-}
-
-/**
- * @function emit
- * Adds a new particle at the given position
- * @param {Vector} position
-*/
-SmokeParticles.prototype.emit = function(position) {
-  if(this.end != this.max) {
-    this.pool[3*this.end] = position.x;
-    this.pool[3*this.end+1] = position.y;
-    this.pool[3*this.end+2] = 0.0;
-    this.end++;
-  } else {
-    this.pool[3] = position.x;
-    this.pool[4] = position.y;
-    this.pool[5] = 0.0;
-    this.end = 1;
-  }
-}
-
-/**
- * @function update
- * Updates the particles
- * @param {DOMHighResTimeStamp} elapsedTime
- */
-SmokeParticles.prototype.update = function(elapsedTime) {
-  function updateParticle(i) {
-    this.pool[3*i+2] += elapsedTime;
-    if(this.pool[3*i+2] > 2000) this.start = i;
-  }
-  var i;
-  if(this.wrapped) {
-    for(i = 0; i < this.end; i++){
-      updateParticle.call(this, i);
-    }
-    for(i = this.start; i < this.max; i++){
-      updateParticle.call(this, i);
-    }
-  } else {
-    for(i = this.start; i < this.end; i++) {
-      updateParticle.call(this, i);
-    }
-  }
-}
-
-/**
- * @function render
- * Renders all bullets in our array.
- * @param {DOMHighResTimeStamp} elapsedTime
- * @param {CanvasRenderingContext2D} ctx
- */
-SmokeParticles.prototype.render = function(elapsedTime, ctx) {
-  function renderParticle(i){
-    var alpha = 1 - (this.pool[3*i+2] / 1000);
-    var radius = 0.1 * this.pool[3*i+2];
-    if(radius > 5) radius = 5;
-    ctx.beginPath();
-    ctx.arc(
-      this.pool[3*i],   // X position
-      this.pool[3*i+1], // y position
-      radius, // radius
-      0,
-      2*Math.PI
-    );
-    ctx.fillStyle = 'rgba(160, 160, 160,' + alpha + ')';
-    ctx.fill();
-  }
-
-  // Render the particles individually
-  var i;
-  if(this.wrapped) {
-    for(i = 0; i < this.end; i++){
-      renderParticle.call(this, i);
-    }
-    for(i = this.start; i < this.max; i++){
-      renderParticle.call(this, i);
-    }
-  } else {
-    for(i = this.start; i < this.end; i++) {
-      renderParticle.call(this, i);
-    }
-  }
-}
-
-},{}],8:[function(require,module,exports){
+},{"./missile":5,"./vector":7}],7:[function(require,module,exports){
 "use strict";
 
 /**
