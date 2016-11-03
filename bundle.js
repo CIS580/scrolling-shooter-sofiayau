@@ -7,32 +7,35 @@ const Vector = require('./vector');
 const Camera = require('./camera');
 const Player = require('./player');
 const BulletPool = require('./bullet_pool');
-
+const Target = require('./target');
 
 /* Global variables */
 var canvas = document.getElementById('screen');
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
 var game = new Game(canvas, update, render);
 var backgrounds = [
   new Image(),
   new Image(),
-  new Image(),
-  new Image()
+  //new Image(),
+  //new Image()
 ];
-backgrounds[0].src = 'assets/shapesx.png';
-backgrounds[1].src = 'assets/shapesy.png';
-backgrounds[2].src = 'assets/shapesz.png';
-backgrounds[3].src = 'assets/shapesw.png';
+backgrounds[0].src = 'assets/map.png';
+backgrounds[1].src = 'assets/backround.png';
+
 var input = {
   up: false,
   down: false,
   left: false,
-  right: false
+  right: false,
+  fire:false
 }
 var camera = new Camera(canvas);
 var bullets = new BulletPool(10);
 var missiles = [];
+var targets = new Target();
 var player = new Player(bullets, missiles);
-var camera = new Camera(canvas);
+
 var reticule = {
   x: 0,
   y: 0
@@ -94,7 +97,38 @@ window.onkeyup = function(event) {
       break;
   }
 }
+window.onmousemove = function(event) {
+  event.preventDefault();
+  reticule.x = event.offsetX;
+  reticule.y = event.offsetY;
+}
 
+/**
+ * @function onmousedown
+ * Handles mouse left-click events
+ */
+window.onmousedown = function(event) {
+  event.preventDefault();
+    if(event.button == 0) {
+    reticule.x = event.offsetX;
+    reticule.y = event.offsetY;
+    var direction = Vector.subtract(
+      reticule,
+      camera.toScreenCoordinates(player.position)
+    );
+    player.fireBullet(direction);
+  }
+}
+/**
+ * @function oncontextmenu
+ * Handles mouse right-click events
+ */
+canvas.oncontextmenu = function(event) {
+  event.preventDefault();
+  reticule.x = event.offsetX;
+  reticule.y = event.offsetY;
+  player.fireMissile();
+}
 /**
  * @function masterLoop
  * Advances the game in sync with the refresh rate of the screen
@@ -121,7 +155,8 @@ function update(elapsedTime) {
 
   // update the camera
   camera.update(player.position);
-
+  targets.update(elapsedTime);
+  console.log(targets.getSize());
   // Update bullets
   bullets.update(elapsedTime, function(bullet){
     if(!camera.onScreen(bullet)) return true;
@@ -173,9 +208,9 @@ function renderBackgrounds(elapsedTime, ctx) {
   ctx.save();
 
   // The background scrolls at 2% of the foreground speed
-  ctx.translate(-camera.x * 0.2, 0);
+  /*ctx.translate(-camera.x * 0.2, 0);
   ctx.drawImage(backgrounds[2], 0, 0);
-  ctx.restore();
+  ctx.restore();*/
 
   // The midground scrolls at 60% of the foreground speed
   ctx.save();
@@ -200,7 +235,7 @@ function renderBackgrounds(elapsedTime, ctx) {
 function renderWorld(elapsedTime, ctx) {
     // Render the bullets
     bullets.render(elapsedTime, ctx);
-
+    targets.render(elapsedTime, ctx);
     // Render the missiles
     missiles.forEach(function(missile) {
       missile.render(elapsedTime, ctx);
@@ -231,7 +266,7 @@ function renderGUI(elapsedTime, ctx) {
   // TODO: Render the GUI
 }
 
-},{"./bullet_pool":2,"./camera":3,"./game":4,"./player":6,"./vector":7}],2:[function(require,module,exports){
+},{"./bullet_pool":2,"./camera":3,"./game":4,"./player":6,"./target":8,"./vector":9}],2:[function(require,module,exports){
 "use strict";
 
 /**
@@ -254,7 +289,20 @@ function BulletPool(maxSize) {
   this.pool = new Float32Array(4 * maxSize);
   this.end = 0;
   this.max = maxSize;
+  this.init = function(bullet){
+    bullet.vx = bullet.v * Math.cos(bullet.angle);
+    bullet.vy = bullet.v * Math.sin(bullet.angle);
+  }
 }
+
+/*
+Bullet.prototype.push = function(bullet){
+  this.init(bullet);
+  // Search for empty space
+  while(pool[++max]!=undefined);
+  pool[max] = bullet;
+  if(max > end) this.end = max;
+}*/
 
 /**
  * @function add
@@ -289,6 +337,13 @@ BulletPool.prototype.add = function(position, velocity) {
 BulletPool.prototype.update = function(elapsedTime, callback) {
   for(var i = 0; i < this.end; i++){
     // Move the bullet
+    /*if(this.pool[i] == undefined) continue;
+    var obj = this.pool[i];
+    obj.x += this.pool.vx * elapsedTime;
+    obj.y += this.pool.vx * elapsedTime;
+    if(obj.x<0 || obj.y<0||obj.x>width || obj.y>height)
+    delete this.object[i];
+    */
     this.pool[4*i] += this.pool[4*i+2];
     this.pool[4*i+1] += this.pool[4*i+3];
     // If a callback was supplied, call it
@@ -321,7 +376,7 @@ BulletPool.prototype.render = function(elapsedTime, ctx) {
   // Render the bullets as a single path
   ctx.save();
   ctx.beginPath();
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   for(var i = 0; i < this.end; i++) {
     ctx.moveTo(this.pool[4*i], this.pool[4*i+1]);
     ctx.arc(this.pool[4*i], this.pool[4*i+1], 2, 0, 2*Math.PI);
@@ -398,7 +453,7 @@ Camera.prototype.toWorldCoordinates = function(screenCoordinates) {
   return Vector.add(screenCoordinates, this);
 }
 
-},{"./vector":7}],4:[function(require,module,exports){
+},{"./vector":9}],4:[function(require,module,exports){
 "use strict";
 
 /**
@@ -457,17 +512,93 @@ Game.prototype.loop = function(newTime) {
 }
 
 },{}],5:[function(require,module,exports){
+"use strict";
 
-},{}],6:[function(require,module,exports){
+/* Classes and Libraries */
+const Vector = require('./vector');
+const SmokeParticles = require('./smoke_particles');
+
+/* Constants */
+const MISSILE_SPEED = 8;
+
+/**
+ * @module Missile
+ * A class representing a player's missile
+ */
+module.exports = exports = Missile;
+
+/**
+ * @constructor Missile
+ * Creates a missile
+ * @param {Vector} position the position of the missile
+ * @param {Object} target the target of the missile
+ */
+function Missile(position, target) {
+  this.position = {x: position.x, y:position.y}
+  this.target = target;
+  this.angle = 0;
+  this.img = new Image()
+  this.img.src = 'assets/helicopter.png';
+  this.smokeParticles = new SmokeParticles(400);
+}
+
+/**
+ * @function update
+ * Updates the missile, steering it towards a locked
+ * target or straight ahead
+ * @param {DOMHighResTimeStamp} elapedTime
+ */
+Missile.prototype.update = function(elapsedTime) {
+
+  // set the velocity
+  var velocity = {x: MISSILE_SPEED, y: 0}
+  if(this.target) {
+    var direction = Vector.subtract(this.position, this.target);
+    velocity = Vector.scale(Vector.normalize(direction), MISSILE_SPEED);
+  }
+
+  // determine missile angle
+  this.angle = Math.atan2(velocity.y, velocity.x);
+
+  // move the missile
+  this.position.x += velocity.x;
+  this.position.y += velocity.y;
+
+  // emit smoke
+  this.smokeParticles.emit(this.position);
+
+  // update smoke
+  this.smokeParticles.update(elapsedTime);
+}
+
+/**
+ * @function render
+ * Renders the missile in world coordinates
+ * @param {DOMHighResTimeStamp} elapsedTime
+ * @param {CanvasRenderingContext2D} ctx
+ */
+Missile.prototype.render = function(elapsedTime, ctx) {
+  // Draw Missile
+  ctx.save();
+  ctx.translate(this.position.x, this.position.y);
+  ctx.rotate(this.angle);
+  ctx.drawImage(this.img, 76, 56, 16, 8, 0, -4, 16, 8);
+  ctx.restore();
+  // Draw Smoke
+  this.smokeParticles.render(elapsedTime, ctx);
+}
+
+},{"./smoke_particles":7,"./vector":9}],6:[function(require,module,exports){
 "use strict";
 
 /* Classes and Libraries */
 const Vector = require('./vector');
 const Missile = require('./missile');
-
 /* Constants */
 const PLAYER_SPEED = 5;
 const BULLET_SPEED = 10;
+const MAX_SPEED = 12;
+const PLAYER_ANGLE = 0.1;
 
 /**
  * @module Player
@@ -502,11 +633,26 @@ Player.prototype.update = function(elapsedTime, input) {
 
   // set the velocity
   this.velocity.x = 0;
-  if(input.left) this.velocity.x -= PLAYER_SPEED;
-  if(input.right) this.velocity.x += PLAYER_SPEED;
+  if(input.left) {
+    // Round turn
+    this.angle -= PLAYER_ANGLE
+    this.velocity.x -= PLAYER_SPEED;
+    if(this.angle < 0) this.angle += 2*Math.PI;
+  }
+  if(input.right){
+  this.angle += PLAYER_ANGLE
+  this.velocity.x += PLAYER_SPEED;
+  if(this.angle > 2* Math.PI) this.angle -= 2*Math.PI;
+}
   this.velocity.y = 0;
-  if(input.up) this.velocity.y -= PLAYER_SPEED / 2;
-  if(input.down) this.velocity.y += PLAYER_SPEED / 2;
+  if(input.up) {
+    this.velocity.y -= PLAYER_SPEED / 2;
+    if(this.velocity.y < MAX_SPEED ){this.velocity.y = -MAX_SPEED/2};
+  }
+  if(input.down) {
+    this.velocity.y += PLAYER_SPEED / 2;
+        if(this.velocity.y > MAX_SPEED ){this.velocity.y = MAX_SPEED};
+  }
 
   // determine player angle
   this.angle = 0;
@@ -535,6 +681,14 @@ Player.prototype.render = function(elapasedTime, ctx) {
   ctx.translate(this.position.x, this.position.y);
   ctx.drawImage(this.img, 48+offset, 57, 23, 27, -12.5, -12, 23, 27);
   ctx.restore();
+
+  ctx.strokeStyle = 'lightblue';
+  ctx.beginPath();
+  ctx.moveTo(this.position.x, this.position.y);
+  var pointerLength = 40;
+  ctx.lineTo(this.position.x + pointerLength * Math.cos(this.angle),
+            this.position.y + pointerLength * Math.sin(this.angle));
+  ctx.stroke();
 }
 
 /**
@@ -562,7 +716,236 @@ Player.prototype.fireMissile = function() {
   }
 }
 
-},{"./missile":5,"./vector":7}],7:[function(require,module,exports){
+},{"./missile":5,"./vector":9}],7:[function(require,module,exports){
+"use strict";
+
+/**
+ * @module SmokeParticles
+ * A class for managing a particle engine that
+ * emulates a smoke trail
+ */
+module.exports = exports = SmokeParticles;
+
+/**
+ * @constructor SmokeParticles
+ * Creates a SmokeParticles engine of the specified size
+ * @param {uint} size the maximum number of particles to exist concurrently
+ */
+function SmokeParticles(maxSize) {
+  this.pool = new Float32Array(3 * maxSize);
+  this.start = 0;
+  this.end = 0;
+  this.wrapped = false;
+  this.max = maxSize;
+}
+
+/**
+ * @function emit
+ * Adds a new particle at the given position
+ * @param {Vector} position
+*/
+SmokeParticles.prototype.emit = function(position) {
+  if(this.end != this.max) {
+    this.pool[3*this.end] = position.x;
+    this.pool[3*this.end+1] = position.y;
+    this.pool[3*this.end+2] = 0.0;
+    this.end++;
+  } else {
+    this.pool[3] = position.x;
+    this.pool[4] = position.y;
+    this.pool[5] = 0.0;
+    this.end = 1;
+  }
+}
+
+/**
+ * @function update
+ * Updates the particles
+ * @param {DOMHighResTimeStamp} elapsedTime
+ */
+SmokeParticles.prototype.update = function(elapsedTime) {
+  function updateParticle(i) {
+    this.pool[3*i+2] += elapsedTime;
+    if(this.pool[3*i+2] > 2000) this.start = i;
+  }
+  var i;
+  if(this.wrapped) {
+    for(i = 0; i < this.end; i++){
+      updateParticle.call(this, i);
+    }
+    for(i = this.start; i < this.max; i++){
+      updateParticle.call(this, i);
+    }
+  } else {
+    for(i = this.start; i < this.end; i++) {
+      updateParticle.call(this, i);
+    }
+  }
+}
+
+/**
+ * @function render
+ * Renders all bullets in our array.
+ * @param {DOMHighResTimeStamp} elapsedTime
+ * @param {CanvasRenderingContext2D} ctx
+ */
+SmokeParticles.prototype.render = function(elapsedTime, ctx) {
+  function renderParticle(i){
+    var alpha = 1 - (this.pool[3*i+2] / 1000);
+    var radius = 0.1 * this.pool[3*i+2];
+    if(radius > 5) radius = 5;
+    ctx.beginPath();
+    ctx.arc(
+      this.pool[3*i],   // X position
+      this.pool[3*i+1], // y position
+      radius, // radius
+      0,
+      2*Math.PI
+    );
+    ctx.fillStyle = 'rgba(160, 160, 160,' + alpha + ')';
+    ctx.fill();
+  }
+
+  // Render the particles individually
+  var i;
+  if(this.wrapped) {
+    for(i = 0; i < this.end; i++){
+      renderParticle.call(this, i);
+    }
+    for(i = this.start; i < this.max; i++){
+      renderParticle.call(this, i);
+    }
+  } else {
+    for(i = this.start; i < this.end; i++) {
+      renderParticle.call(this, i);
+    }
+  }
+}
+
+},{}],8:[function(require,module,exports){
+"use strict";
+
+/* Classes and Libraries */
+const Vector = require('./vector');
+const Missile = require('./missile');
+/* Constants */
+const TARGET_SPEED = 5;
+const MAX_SPEED = 12;
+const TARGET_ANGLE = 0.1;
+
+/**
+ * @module Target
+ * A class representing a target
+ */
+module.exports = exports = Target;
+/*
+x,y,angle,size,v,color
+*/
+/**
+ * @constructor Target
+ * Creates a Target
+ * @param {BulletPool} targets bullet pool
+ */
+function Target() {
+  this.objects = [];
+  this.maxID = 0;
+  this.angle = 0;
+  this.init = function(target){
+    target.vx = target.v * Math.cos(target.angle),
+    target.vy = target.v * Math.sin(target.angle)
+  }
+}
+Target.prototype.push = function(target){
+  this.init(target);
+  var i = -1;
+  while(this.objects [++i] != undefined);
+  this.objects[i] = target;
+  if(this.maxID < i) this.maxID = i;
+}
+
+/**
+ * @function update
+ * Updates the player based on the supplied input
+ * @param {DOMHighResTimeStamp} elapedTime
+ * @param {Input} input object defining input, must have
+ * boolean properties: up, left, right, down
+ */
+Target.prototype.update = function(elapsedTime) {
+  for(var i =0; i<this.maxID;i++){
+    if(this.objects[i] == undefined)continue;
+    var obj = this.objects[i];
+    obj.x = obj.vx * elapsedTime;
+    obj.x = obj.vy * elapsedTime;
+    /*var info = targets.getInfo(obj);
+    if(info.dist<= obj.size){
+      info.object.remove = true;
+      obj.hitAnimClock = 0;
+    }*/
+    if(obj.hitAnimClock != -1){
+      obj.hitAnimClock += elapsedTime;
+      if(obj.hitAnimClock >= 1){
+        delete this.objects[i];
+        continue;
+      }
+    }
+
+    if(obj.x<0 || obj.y<0||obj.x>this.width||
+      obj.y>this.height||obj.remove)
+    delete this.objects[i];
+  }
+  if(this.getSize() < 5){
+    this.push({
+      x: Math.random()* this.width,
+      y: Math.random()* this.height,
+      v:5,
+      angle:Math.random()*2*Math.PI,
+      size:25,
+    });
+  }
+}
+
+/**
+ * @function render
+ * Renders the player helicopter in world coordinates
+ * @param {DOMHighResTimeStamp} elapsedTime
+ * @param {CanvasRenderingContext2D} ctx
+ */
+Target.prototype.render = function(elapasedTime, ctx) {
+  ctx.fillStyle ='white';
+  for(var i =0; i<this.maxID;i++){
+    if(this.objects[i] == undefined)continue;
+    var obj = this.objects[i];
+    ctx.beginPath();
+    ctx.arc(obj.x, obj.y, 2,0,6.28);
+    ctx.fill();
+  }
+}
+Target.prototype.getSize = function(){
+  var size = 0;
+  for(var i =0; i<this.maxID;i++){
+    if(this.objects[i]==undefined)continue;
+    size++;
+  }
+  return size;
+}
+Target.prototype.getInfo = function(o){
+  var dist = 9999;
+  var obj;
+  for(var i =0; i<=this.maxID;i++){
+    if(this.objects[i]==undefined)continue;
+    var d = Math.sqrt(
+      (o.x - objects[i].x)*(o.x - objects[i].x)+
+      (o.y - objects[i].y)*(o.y - objects[i].y)
+    );
+    if(d < dist){
+      dist = d;
+      obj = objects[i];
+    }
+  }
+  return {dist:dist, object:obj};
+}
+
+},{"./missile":5,"./vector":9}],9:[function(require,module,exports){
 "use strict";
 
 /**

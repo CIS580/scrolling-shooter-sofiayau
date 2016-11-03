@@ -20,7 +20,20 @@ function BulletPool(maxSize) {
   this.pool = new Float32Array(4 * maxSize);
   this.end = 0;
   this.max = maxSize;
+  this.init = function(bullet){
+    bullet.vx = bullet.v * Math.cos(bullet.angle);
+    bullet.vy = bullet.v * Math.sin(bullet.angle);
+  }
 }
+
+/*
+Bullet.prototype.push = function(bullet){
+  this.init(bullet);
+  // Search for empty space
+  while(pool[++max]!=undefined);
+  pool[max] = bullet;
+  if(max > end) this.end = max;
+}*/
 
 /**
  * @function add
@@ -55,6 +68,13 @@ BulletPool.prototype.add = function(position, velocity) {
 BulletPool.prototype.update = function(elapsedTime, callback) {
   for(var i = 0; i < this.end; i++){
     // Move the bullet
+    /*if(this.pool[i] == undefined) continue;
+    var obj = this.pool[i];
+    obj.x += this.pool.vx * elapsedTime;
+    obj.y += this.pool.vx * elapsedTime;
+    if(obj.x<0 || obj.y<0||obj.x>width || obj.y>height)
+    delete this.object[i];
+    */
     this.pool[4*i] += this.pool[4*i+2];
     this.pool[4*i+1] += this.pool[4*i+3];
     // If a callback was supplied, call it
@@ -87,7 +107,7 @@ BulletPool.prototype.render = function(elapsedTime, ctx) {
   // Render the bullets as a single path
   ctx.save();
   ctx.beginPath();
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   for(var i = 0; i < this.end; i++) {
     ctx.moveTo(this.pool[4*i], this.pool[4*i+1]);
     ctx.arc(this.pool[4*i], this.pool[4*i+1], 2, 0, 2*Math.PI);

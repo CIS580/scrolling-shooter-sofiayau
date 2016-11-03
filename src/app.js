@@ -6,32 +6,35 @@ const Vector = require('./vector');
 const Camera = require('./camera');
 const Player = require('./player');
 const BulletPool = require('./bullet_pool');
-
+const Target = require('./target');
 
 /* Global variables */
 var canvas = document.getElementById('screen');
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
 var game = new Game(canvas, update, render);
 var backgrounds = [
   new Image(),
   new Image(),
-  new Image(),
-  new Image()
+  //new Image(),
+  //new Image()
 ];
-backgrounds[0].src = 'assets/shapesx.png';
-backgrounds[1].src = 'assets/shapesy.png';
-backgrounds[2].src = 'assets/shapesz.png';
-backgrounds[3].src = 'assets/shapesw.png';
+backgrounds[0].src = 'assets/map.png';
+backgrounds[1].src = 'assets/backround.png';
+
 var input = {
   up: false,
   down: false,
   left: false,
-  right: false
+  right: false,
+  fire:false
 }
 var camera = new Camera(canvas);
 var bullets = new BulletPool(10);
 var missiles = [];
+var targets = new Target();
 var player = new Player(bullets, missiles);
-var camera = new Camera(canvas);
+
 var reticule = {
   x: 0,
   y: 0
@@ -93,7 +96,38 @@ window.onkeyup = function(event) {
       break;
   }
 }
+window.onmousemove = function(event) {
+  event.preventDefault();
+  reticule.x = event.offsetX;
+  reticule.y = event.offsetY;
+}
 
+/**
+ * @function onmousedown
+ * Handles mouse left-click events
+ */
+window.onmousedown = function(event) {
+  event.preventDefault();
+    if(event.button == 0) {
+    reticule.x = event.offsetX;
+    reticule.y = event.offsetY;
+    var direction = Vector.subtract(
+      reticule,
+      camera.toScreenCoordinates(player.position)
+    );
+    player.fireBullet(direction);
+  }
+}
+/**
+ * @function oncontextmenu
+ * Handles mouse right-click events
+ */
+canvas.oncontextmenu = function(event) {
+  event.preventDefault();
+  reticule.x = event.offsetX;
+  reticule.y = event.offsetY;
+  player.fireMissile();
+}
 /**
  * @function masterLoop
  * Advances the game in sync with the refresh rate of the screen
@@ -120,7 +154,8 @@ function update(elapsedTime) {
 
   // update the camera
   camera.update(player.position);
-
+  targets.update(elapsedTime);
+  console.log(targets.getSize());
   // Update bullets
   bullets.update(elapsedTime, function(bullet){
     if(!camera.onScreen(bullet)) return true;
@@ -172,9 +207,9 @@ function renderBackgrounds(elapsedTime, ctx) {
   ctx.save();
 
   // The background scrolls at 2% of the foreground speed
-  ctx.translate(-camera.x * 0.2, 0);
+  /*ctx.translate(-camera.x * 0.2, 0);
   ctx.drawImage(backgrounds[2], 0, 0);
-  ctx.restore();
+  ctx.restore();*/
 
   // The midground scrolls at 60% of the foreground speed
   ctx.save();
@@ -199,7 +234,7 @@ function renderBackgrounds(elapsedTime, ctx) {
 function renderWorld(elapsedTime, ctx) {
     // Render the bullets
     bullets.render(elapsedTime, ctx);
-
+    targets.render(elapsedTime, ctx);
     // Render the missiles
     missiles.forEach(function(missile) {
       missile.render(elapsedTime, ctx);

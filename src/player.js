@@ -3,10 +3,11 @@
 /* Classes and Libraries */
 const Vector = require('./vector');
 const Missile = require('./missile');
-
 /* Constants */
 const PLAYER_SPEED = 5;
 const BULLET_SPEED = 10;
+const MAX_SPEED = 12;
+const PLAYER_ANGLE = 0.1;
 
 /**
  * @module Player
@@ -41,11 +42,26 @@ Player.prototype.update = function(elapsedTime, input) {
 
   // set the velocity
   this.velocity.x = 0;
-  if(input.left) this.velocity.x -= PLAYER_SPEED;
-  if(input.right) this.velocity.x += PLAYER_SPEED;
+  if(input.left) {
+    // Round turn
+    this.angle -= PLAYER_ANGLE
+    this.velocity.x -= PLAYER_SPEED;
+    if(this.angle < 0) this.angle += 2*Math.PI;
+  }
+  if(input.right){
+  this.angle += PLAYER_ANGLE
+  this.velocity.x += PLAYER_SPEED;
+  if(this.angle > 2* Math.PI) this.angle -= 2*Math.PI;
+}
   this.velocity.y = 0;
-  if(input.up) this.velocity.y -= PLAYER_SPEED / 2;
-  if(input.down) this.velocity.y += PLAYER_SPEED / 2;
+  if(input.up) {
+    this.velocity.y -= PLAYER_SPEED / 2;
+    if(this.velocity.y < MAX_SPEED ){this.velocity.y = -MAX_SPEED/2};
+  }
+  if(input.down) {
+    this.velocity.y += PLAYER_SPEED / 2;
+        if(this.velocity.y > MAX_SPEED ){this.velocity.y = MAX_SPEED};
+  }
 
   // determine player angle
   this.angle = 0;
@@ -74,6 +90,14 @@ Player.prototype.render = function(elapasedTime, ctx) {
   ctx.translate(this.position.x, this.position.y);
   ctx.drawImage(this.img, 48+offset, 57, 23, 27, -12.5, -12, 23, 27);
   ctx.restore();
+
+  ctx.strokeStyle = 'lightblue';
+  ctx.beginPath();
+  ctx.moveTo(this.position.x, this.position.y);
+  var pointerLength = 40;
+  ctx.lineTo(this.position.x + pointerLength * Math.cos(this.angle),
+            this.position.y + pointerLength * Math.sin(this.angle));
+  ctx.stroke();
 }
 
 /**
