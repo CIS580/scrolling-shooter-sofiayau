@@ -7,20 +7,13 @@ const Camera = require('./camera');
 const Player = require('./player');
 const BulletPool = require('./bullet_pool');
 const Target = require('./target');
-
+const Tilemap = require('./tilemap');
 /* Global variables */
 var canvas = document.getElementById('screen');
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
+
 var game = new Game(canvas, update, render);
-var backgrounds = [
-  new Image(),
-  new Image(),
-  //new Image(),
-  //new Image()
-];
-backgrounds[0].src = 'assets/map.png';
-backgrounds[1].src = 'assets/backround.png';
+
+var background = require('../assets/background.json');
 
 var input = {
   up: false,
@@ -32,12 +25,24 @@ var input = {
 var camera = new Camera(canvas);
 var bullets = new BulletPool(10);
 var missiles = [];
-var targets = new Target();
+var targets = new Target('enemy1',{x:200,y:200});
 var player = new Player(bullets, missiles);
-
 var reticule = {
   x: 0,
   y: 0
+}
+
+var back_tilemap = [];
+back_tilemap.push(new Tilemap)(background, {
+  onload: function(){
+    checkMap();
+  }
+});
+
+var mapCount = 3;
+function checkMap(){
+  mapCount --;
+  if(mapCount == 0) masterLoop(performance.now());
 }
 /**
  * @function onkeydown
@@ -212,15 +217,15 @@ function renderBackgrounds(elapsedTime, ctx) {
   ctx.restore();*/
 
   // The midground scrolls at 60% of the foreground speed
-  ctx.save();
+  /*ctx.save();
   ctx.translate(-camera.x * 0.6, 0);
   ctx.drawImage(backgrounds[1], 0, 0);
-  ctx.restore();
+  ctx.restore();*/
 
   // The foreground scrolls in sync with the camera
   ctx.save();
   ctx.translate(-camera.x, 0);
-  ctx.drawImage(backgrounds[0], 0, 0);
+  back_tilemap[0].render(ctx);
   ctx.restore();
 }
 

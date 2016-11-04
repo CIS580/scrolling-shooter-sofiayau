@@ -1,4 +1,40 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports={ "height":88,
+ "layers":[
+        {
+         "data":[1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 37, 38, 39, 39, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 48, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 10, 11, 12, 12, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 19, 20, 21, 21, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 28, 29, 30, 30],
+         "height":88,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":40,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tileheight":26,
+ "tilesets":[
+        {
+         "columns":9,
+         "firstgid":1,
+         "image":"scrolling-shooter-sofiayau\/assets\/shapesz.png",
+         "imageheight":1736,
+         "imagewidth":240,
+         "margin":1,
+         "name":"shapesz",
+         "spacing":1,
+         "tilecount":576,
+         "tileheight":26,
+         "tilewidth":24
+        }],
+ "tilewidth":24,
+ "version":1,
+ "width":40
+}
+},{}],2:[function(require,module,exports){
 "use strict";
 
 /* Classes and Libraries */
@@ -8,20 +44,13 @@ const Camera = require('./camera');
 const Player = require('./player');
 const BulletPool = require('./bullet_pool');
 const Target = require('./target');
-
+const Tilemap = require('./tilemap');
 /* Global variables */
 var canvas = document.getElementById('screen');
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
+
 var game = new Game(canvas, update, render);
-var backgrounds = [
-  new Image(),
-  new Image(),
-  //new Image(),
-  //new Image()
-];
-backgrounds[0].src = 'assets/map.png';
-backgrounds[1].src = 'assets/backround.png';
+
+var background = require('../assets/background.json');
 
 var input = {
   up: false,
@@ -33,12 +62,24 @@ var input = {
 var camera = new Camera(canvas);
 var bullets = new BulletPool(10);
 var missiles = [];
-var targets = new Target();
+var targets = new Target('enemy1',{x:200,y:200});
 var player = new Player(bullets, missiles);
-
 var reticule = {
   x: 0,
   y: 0
+}
+
+var back_tilemap = [];
+back_tilemap.push(new Tilemap)(background, {
+  onload: function(){
+    checkMap();
+  }
+});
+
+var mapCount = 3;
+function checkMap(){
+  mapCount --;
+  if(mapCount == 0) masterLoop(performance.now());
 }
 /**
  * @function onkeydown
@@ -213,15 +254,15 @@ function renderBackgrounds(elapsedTime, ctx) {
   ctx.restore();*/
 
   // The midground scrolls at 60% of the foreground speed
-  ctx.save();
+  /*ctx.save();
   ctx.translate(-camera.x * 0.6, 0);
   ctx.drawImage(backgrounds[1], 0, 0);
-  ctx.restore();
+  ctx.restore();*/
 
   // The foreground scrolls in sync with the camera
   ctx.save();
   ctx.translate(-camera.x, 0);
-  ctx.drawImage(backgrounds[0], 0, 0);
+  back_tilemap[0].render(ctx);
   ctx.restore();
 }
 
@@ -266,7 +307,7 @@ function renderGUI(elapsedTime, ctx) {
   // TODO: Render the GUI
 }
 
-},{"./bullet_pool":2,"./camera":3,"./game":4,"./player":6,"./target":8,"./vector":9}],2:[function(require,module,exports){
+},{"../assets/background.json":1,"./bullet_pool":3,"./camera":4,"./game":5,"./player":7,"./target":9,"./tilemap":10,"./vector":11}],3:[function(require,module,exports){
 "use strict";
 
 /**
@@ -385,7 +426,7 @@ BulletPool.prototype.render = function(elapsedTime, ctx) {
   ctx.restore();
 }
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 "use strict";
 
 /* Classes and Libraries */
@@ -453,7 +494,7 @@ Camera.prototype.toWorldCoordinates = function(screenCoordinates) {
   return Vector.add(screenCoordinates, this);
 }
 
-},{"./vector":9}],4:[function(require,module,exports){
+},{"./vector":11}],5:[function(require,module,exports){
 "use strict";
 
 /**
@@ -511,7 +552,7 @@ Game.prototype.loop = function(newTime) {
   this.frontCtx.drawImage(this.backBuffer, 0, 0);
 }
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 
 /* Classes and Libraries */
@@ -588,7 +629,7 @@ Missile.prototype.render = function(elapsedTime, ctx) {
   this.smokeParticles.render(elapsedTime, ctx);
 }
 
-},{"./smoke_particles":7,"./vector":9}],6:[function(require,module,exports){
+},{"./smoke_particles":8,"./vector":11}],7:[function(require,module,exports){
 "use strict";
 
 /* Classes and Libraries */
@@ -716,7 +757,7 @@ Player.prototype.fireMissile = function() {
   }
 }
 
-},{"./missile":5,"./vector":9}],7:[function(require,module,exports){
+},{"./missile":6,"./vector":11}],8:[function(require,module,exports){
 "use strict";
 
 /**
@@ -822,12 +863,13 @@ SmokeParticles.prototype.render = function(elapsedTime, ctx) {
   }
 }
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 "use strict";
 
 /* Classes and Libraries */
 const Vector = require('./vector');
 const Missile = require('./missile');
+const Particles = require('./smoke_particles');
 /* Constants */
 const TARGET_SPEED = 5;
 const MAX_SPEED = 12;
@@ -844,24 +886,41 @@ x,y,angle,size,v,color
 /**
  * @constructor Target
  * Creates a Target
- * @param {BulletPool} targets bullet pool
+ * @param {Target} targets target
  */
-function Target() {
-  this.objects = [];
-  this.maxID = 0;
-  this.angle = 0;
-  this.init = function(target){
-    target.vx = target.v * Math.cos(target.angle),
-    target.vy = target.v * Math.sin(target.angle)
-  }
+function Target(type, position) {
+  this.type = type;
+  this.begin = {x:position.x, y:position.y};
+  this.position = position;
+  this.velocity = {x: 0, y: 0};
+
+  this.enemy1 = new Image();
+  this.enemy1.src = 'assets/tyrian.shp.0';
+  this.enemy2 = new Image();
+  this.enemy2.src = 'assets/tyrian.shp.0';
+  this.enemy3 = new Image();
+  this.enemy3.src = 'assets/tyrian.shp.0';
+  this.particle = new Particles(30);
+
+  this.boss = new Image();
+  this.boss.src = 'assets/tyrian.shp.0';
+
+  this.types = ['enemy1','enemy2','enemy3','boss'];
+
+  this.right = true;
+  this.up = true;
+  this.down = true;
+  this.left = true;
 }
-Target.prototype.push = function(target){
+/*
+  Target.prototype.push = function(target){
   this.init(target);
   var i = -1;
   while(this.objects [++i] != undefined);
   this.objects[i] = target;
   if(this.maxID < i) this.maxID = i;
 }
+*/
 
 /**
  * @function update
@@ -870,37 +929,34 @@ Target.prototype.push = function(target){
  * @param {Input} input object defining input, must have
  * boolean properties: up, left, right, down
  */
-Target.prototype.update = function(elapsedTime) {
-  for(var i =0; i<this.maxID;i++){
-    if(this.objects[i] == undefined)continue;
-    var obj = this.objects[i];
-    obj.x = obj.vx * elapsedTime;
-    obj.x = obj.vy * elapsedTime;
-    /*var info = targets.getInfo(obj);
-    if(info.dist<= obj.size){
-      info.object.remove = true;
-      obj.hitAnimClock = 0;
-    }*/
-    if(obj.hitAnimClock != -1){
-      obj.hitAnimClock += elapsedTime;
-      if(obj.hitAnimClock >= 1){
-        delete this.objects[i];
-        continue;
+Target.prototype.update = function(camera, player, elapsedTime) {
+  switch(this.type){
+    case 'enemy1':
+      if((this.begin.y - this.position.y)>40) {
+        this.up = false;
+        this.position.y += 5;
       }
-    }
-
-    if(obj.x<0 || obj.y<0||obj.x>this.width||
-      obj.y>this.height||obj.remove)
-    delete this.objects[i];
-  }
-  if(this.getSize() < 5){
-    this.push({
-      x: Math.random()* this.width,
-      y: Math.random()* this.height,
-      v:5,
-      angle:Math.random()*2*Math.PI,
-      size:25,
-    });
+      else this.position.y -= 5;
+      break;
+    case 'enemy2':
+      if((this.begin.x - this.position.x) > 40){
+        this.left = false;
+        this.position.x += 5;
+      }
+      else this.position.x -= 5;
+      break;
+    case 'enemy3':
+      if((this.begin.x - this.position.x) > 40){
+        this.right = false;
+        this.position.x -= 5;
+      }
+      else this.position.x += 5;
+      break;
+    case 'boss':
+      this.fireBullet(
+        Vector.subtract(player.position,
+        camera.toScreenCoordinates(this.position)));
+        break;
   }
 }
 
@@ -912,14 +968,31 @@ Target.prototype.update = function(elapsedTime) {
  */
 Target.prototype.render = function(elapasedTime, ctx) {
   ctx.fillStyle ='white';
-  for(var i =0; i<this.maxID;i++){
-    if(this.objects[i] == undefined)continue;
-    var obj = this.objects[i];
-    ctx.beginPath();
-    ctx.arc(obj.x, obj.y, 2,0,6.28);
-    ctx.fill();
+  ctx.save();
+  ctx.translate(this.position.x, this.position.y);
+  switch (this.type) {
+    case 'enemy1':
+      ctx.drawImage(this.enemy1, 200,200,20,20,100,100);
+      break;
+    case 'enemy2':
+      ctx.drawImage(this.enemy2, 15, 10, 240, 240,100,100);
+      break;
+    case 'enemy3':
+      ctx.drawImage(this.enemy3, 20, 40, 320, 280,100,100);
+      break;
+    case 'boss':
+      ctx.drawImage(this.boss, 30,50, 200, 10, 150,150);
+      break;
   }
+  ctx.restore();
 }
+
+Target.prototype.fireBullet = function(direction) {
+  var position = Vector.add(this.position, {x:30, y:30});
+  var velocity = Vector.scale(Vector.normalize(direction), BULLET_SPEED);
+  this.bullets.add(position, velocity);
+}
+
 Target.prototype.getSize = function(){
   var size = 0;
   for(var i =0; i<this.maxID;i++){
@@ -928,6 +1001,7 @@ Target.prototype.getSize = function(){
   }
   return size;
 }
+
 Target.prototype.getInfo = function(o){
   var dist = 9999;
   var obj;
@@ -945,7 +1019,119 @@ Target.prototype.getInfo = function(o){
   return {dist:dist, object:obj};
 }
 
-},{"./missile":5,"./vector":9}],9:[function(require,module,exports){
+},{"./missile":6,"./smoke_particles":8,"./vector":11}],10:[function(require,module,exports){
+"use strict";
+// Tilemap engine defined using the Module pattern
+module.exports = exports = Tilemap;
+
+function Tilemap(mapData, options){
+  this.tiles = [];
+  this.tilesets = [];
+  this.layers = [];
+//  this.tileWidth = mapData.tilewidth;
+//  this.tileHeight = mapData.tileheight;
+//  this.mapWidth = mapData.width;
+//  this.mapHeight = mapData.height;
+  this.loading = 0;
+
+  // Load the tileset(s)
+  mapData.tilesets.forEach( function(tilesetmapData, index) {
+      // Load the tileset image
+      var tileset = new Image();
+      this.loading++;
+      tileset.onload = function() {
+        this.loading--;
+        if(this.loading == 0 && options.onload) options.onload();
+      }
+      tileset.src = tilesetmapData.image;
+      tilesets.push(tileset);
+      // Create the tileset's tiles
+      var colCount = Math.floor(tilesetmapData.imagewidth / tileWidth),
+          rowCount = Math.floor(tilesetmapData.imageheight / tileHeight),
+          tileCount = colCount * rowCount;
+      for(i = 0; i < tileCount; i++) {
+        var tile = {
+          // Reference to the image, shared amongst all tiles in the tileset
+          image: tileset,
+          // Source x position.  i % colCount == col number (as we remove full rows)
+          sx: (i % colCount) * tileWidth,
+          // Source y position. i / colWidth (integer division) == row number
+          sy: Math.floor(i / rowCount) * tileHeight,
+          // Indicates a solid tile (i.e. solid property is true).  As properties
+          // can be left blank, we need to make sure the property exists.
+          // We'll assume any tiles missing the solid property are *not* solid
+          //solid: (tilesetmapData.tileproperties[i] && tilesetmapData.tileproperties[i].solid == "true") ? true : false
+        }
+        this.tiles.push(tile);
+      }
+    });
+    // Parse the layers in the map
+   mapData.layers.forEach( function(layerData) {
+
+     // Tile layers need to be stored in the engine for later
+     // rendering
+     if(layerData.type == "tilelayer") {
+       // Create a layer object to represent this tile layer
+       var layer = {
+         name: layerData.name,
+         width: layerData.width,
+         height: layerData.height,
+         visible: layerData.visible
+       }
+
+       // Set up the layer's data array.  We'll try to optimize
+       // by keeping the index data type as small as possible
+       if(this.tiles.length < Math.pow(2,8))
+         layer.data = new Uint8Array(layerData.data);
+       else if (this.tiles.length < Math.Pow(2, 16))
+         layer.data = new Uint16Array(layerData.data);
+       else
+         layer.data = new Uint32Array(layerData.data);
+
+       // save the tile layer
+       this.layers.push(layer);
+     }
+   });
+ }
+
+Tilemap.prototype.render = function(screenCtx) {
+    // Render tilemap layers - note this assumes
+    // layers are sorted back-to-front so foreground
+    // layers obscure background ones.
+    // see http://en.wikipedia.org/wiki/Painter%27s_algorithm
+    this.layers.forEach(function(layer){
+
+      // Only draw layers that are currently visible
+      if(layer.visible) {
+        for(y = 0; y < layer.height; y++) {
+          for(x = 0; x < layer.width; x++) {
+            var tileId = layer.data[x + layer.width * y];
+
+            // tiles with an id of 0 don't exist
+            if(tileId != 0) {
+              var tile = this.tiles[tileId - 1];
+              if(tile.image) { // Make sure the image has loaded
+                screenCtx.drawImage(
+                  tile.image,     // The image to draw
+                  tile.sx, tile.sy, this.tileWidth, this.tileHeight, // The portion of image to draw
+                  x*this.tileWidth, y*this.tileHeight, this.tileWidth, this.tileHeight // Where to draw the image on-screen
+                );
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+Tilemap.prototype.tileAt = function(x, y, layer) {
+    // sanity check
+    if(layer < 0 || x < 0 || y < 0 || layer >= layers.length || x > mapWidth || y > mapHeight)
+      return undefined;
+    return tiles[layers[layer].data[x + y*mapWidth] - 1];
+  }
+
+},{}],11:[function(require,module,exports){
 "use strict";
 
 /**
@@ -1042,4 +1228,4 @@ function normalize(a) {
   return {x: a.x / mag, y: a.y / mag};
 }
 
-},{}]},{},[1]);
+},{}]},{},[2]);
