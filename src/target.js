@@ -106,16 +106,16 @@ Target.prototype.render = function(elapasedTime, ctx) {
   ctx.translate(this.position.x, this.position.y);
   switch (this.type) {
     case 'enemy1':
-      ctx.drawImage(this.enemy1, 200,200,20,20,100,100);
+      //ctx.drawImage(this.enemy1, 200,200,20,20,100,100);
       break;
     case 'enemy2':
-      ctx.drawImage(this.enemy2, 15, 10, 240, 240,100,100);
+      //ctx.drawImage(this.enemy2, 15, 10, 240, 240,100,100);
       break;
     case 'enemy3':
-      ctx.drawImage(this.enemy3, 20, 40, 320, 280,100,100);
+      //ctx.drawImage(this.enemy3, 20, 40, 320, 280,100,100);
       break;
     case 'boss':
-      ctx.drawImage(this.boss, 30,50, 200, 10, 150,150);
+      //ctx.drawImage(this.boss, 30,50, 200, 10, 150,150);
       break;
   }
   ctx.restore();

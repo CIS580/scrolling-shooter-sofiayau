@@ -12,8 +12,19 @@ const Tilemap = require('./tilemap');
 var canvas = document.getElementById('screen');
 
 var game = new Game(canvas, update, render);
-
+//Level 1
 var background = require('../assets/background.json');
+var midground = require('../assets/midground.json');
+var frontground = require('../assets/frontground.json');
+//Level 2
+var background2 = require('../assets/background2.json');
+var midground2 = require('../assets/midground2.json');
+var frontground2 = require('../assets/frontground2.json');
+//Level 3
+var background3 = require('../assets/background3.json');
+var midground3 = require('../assets/midground3.json');
+var frontground3 = require('../assets/frontground3.json');
+
 
 var input = {
   up: false,
@@ -33,13 +44,58 @@ var reticule = {
 }
 
 var back_tilemap = [];
-back_tilemap.push(new Tilemap)(background, {
+back_tilemap.push(new Tilemap(background, {
   onload: function(){
     checkMap();
   }
-});
+}));
+back_tilemap.push(new Tilemap(midground, {
+  onload: function(){
+    checkMap();
+  }
+}));
+back_tilemap.push(new Tilemap(frontground, {
+  onload: function(){
+    checkMap();
+  }
+}));
 
-var mapCount = 3;
+//Level 2
+back_tilemap.push(new Tilemap(background2, {
+  onload: function(){
+    checkMap();
+  }
+}));
+back_tilemap.push(new Tilemap(midground2, {
+  onload: function(){
+    checkMap();
+  }
+}));
+back_tilemap.push(new Tilemap(frontground2, {
+  onload: function(){
+    checkMap();
+  }
+}));
+
+//Level 3
+back_tilemap.push(new Tilemap(background3, {
+  onload: function(){
+    checkMap();
+  }
+}));
+back_tilemap.push(new Tilemap(midground3, {
+  onload: function(){
+    checkMap();
+  }
+}));
+back_tilemap.push(new Tilemap(frontground3, {
+  onload: function(){
+    checkMap();
+  }
+}));
+
+
+var mapCount = 9;
 function checkMap(){
   mapCount --;
   if(mapCount == 0) masterLoop(performance.now());
@@ -227,7 +283,51 @@ function renderBackgrounds(elapsedTime, ctx) {
   ctx.translate(-camera.x, 0);
   back_tilemap[0].render(ctx);
   ctx.restore();
+
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  back_tilemap[1].render(ctx);
+  ctx.restore();
+
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  back_tilemap[2].render(ctx);
+  ctx.restore();
+
+  //Level 2
+  // The foreground scrolls in sync with the camera
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  back_tilemap[3].render(ctx);
+  ctx.restore();
+
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  back_tilemap[4].render(ctx);
+  ctx.restore();
+
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  back_tilemap[5].render(ctx);
+  ctx.restore();
+  //Level 3
+  // The foreground scrolls in sync with the camera
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  back_tilemap[6].render(ctx);
+  ctx.restore();
+
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  back_tilemap[7].render(ctx);
+  ctx.restore();
+
+  ctx.save();
+  ctx.translate(-camera.x, 0);
+  back_tilemap[8].render(ctx);
+  ctx.restore();
 }
+
 
 /**
   * @function renderWorld
