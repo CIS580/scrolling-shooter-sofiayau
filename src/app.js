@@ -25,6 +25,16 @@ var background3 = require('../assets/background3.json');
 var midground3 = require('../assets/midground3.json');
 var frontground3 = require('../assets/frontground3.json');
 
+var level = 0;
+var state = {
+  Level1: 0,
+  Level2: 1,
+  Level3: 2,
+  gameOver: 3
+}
+var now = state.Level1;
+var bb = new Image();
+bb.src = './assets/background_1.png';
 
 var input = {
   up: false,
@@ -36,7 +46,14 @@ var input = {
 var camera = new Camera(canvas);
 var bullets = new BulletPool(10);
 var missiles = [];
-var targets = new Target('enemy1',{x:200,y:200});
+var enemy1 = new Target('enemy1',{x:200,y:200},100);
+var enemy2 = new Target('enemy2',{x:100,y:300},20);
+var enemy3 = new Target('enemy3',{x:300,y:100},30);
+var enemy4 = new Target('enemy4',{x:250,y:410},240);
+var enemy5 = new Target('enemy5',{x:160,y:320},210);
+var boss = new Target('boss',{x:100,y:300},1500);
+
+
 var player = new Player(bullets, missiles);
 var reticule = {
   x: 0,
@@ -176,7 +193,18 @@ window.onmousedown = function(event) {
       reticule,
       camera.toScreenCoordinates(player.position)
     );
-    player.fireBullet(direction);
+    if(now < state.gameOver)
+    {player.fireBullet(direction);}
+    else if(now == state.gameOver){
+      playe.init();
+      now = state.Level1;
+      level = 0;
+    }
+    else {
+      player.level();
+      level ++;
+      now -= 3;
+    }
   }
 }
 /**
@@ -208,20 +236,51 @@ masterLoop(performance.now());
  * @param {DOMHighResTimeStamp} elapsedTime indicates
  * the number of milliseconds passed since the last frame.
  */
+function animate(){
+   now = state.gameOver;
+ }
 function update(elapsedTime) {
+  if(now > state.Level3){
+    console.log("Congratulations");
+  }
+  if(player.hp <= 0){
+    console.log("Game over");
+    setTimeout(animate, 200);
+  }
+  if(player.position.y >= 1024){
+    if(now == state.Level1){
+      now = state.Level2;
+
+    }
+    if(now == state.Level2){
+
+      now = state.Level3;
+
+    }
+    if(now == state.Level3){
+      console.log("Completed");
+
+    }
+  }
 
   // update the player
   player.update(elapsedTime, input);
 
   // update the camera
   camera.update(player.position);
-  targets.update(elapsedTime);
-  console.log(targets.getSize());
+  enemy1.update(elapsedTime);
+  enemy2.update(elapsedTime);
+  enemy3.update(elapsedTime);
+  enemy4.update(elapsedTime);
+  enemy5.update(elapsedTime);
+  boss.update(elapsedTime);
+  console.log(enemy1.getSize());
   // Update bullets
   bullets.update(elapsedTime, function(bullet){
     if(!camera.onScreen(bullet)) return true;
     return false;
   });
+
 
   // Update missiles
   var markedForRemoval = [];
@@ -245,8 +304,8 @@ function update(elapsedTime) {
   */
 function render(elapsedTime, ctx) {
   ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, 1024, 786);
-
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(bb,0,0);
   // TODO: Render background
   renderBackgrounds(elapsedTime, ctx);
   // Transform the coordinate system using
@@ -279,53 +338,57 @@ function renderBackgrounds(elapsedTime, ctx) {
   ctx.restore();*/
 
   // The foreground scrolls in sync with the camera
-  ctx.save();
-  ctx.translate(-camera.x, 0);
+  if(level ==0)
+{  ctx.save();
+  ctx.translate(0, -camera.y);
   back_tilemap[0].render(ctx);
   ctx.restore();
 
   ctx.save();
-  ctx.translate(-camera.x, 0);
+  ctx.translate(0, -camera.y * 0.6);
   back_tilemap[1].render(ctx);
   ctx.restore();
 
   ctx.save();
-  ctx.translate(-camera.x, 0);
+  ctx.translate(0, -camera.y * 0.2);
   back_tilemap[2].render(ctx);
-  ctx.restore();
+  ctx.restore();}
 
   //Level 2
   // The foreground scrolls in sync with the camera
-  ctx.save();
-  ctx.translate(-camera.x, 0);
+  if(level == 1)
+{  ctx.save();
+  ctx.translate(0, -camera.y * 0.2);
   back_tilemap[3].render(ctx);
   ctx.restore();
 
   ctx.save();
-  ctx.translate(-camera.x, 0);
+  ctx.translate(0, -camera.y * 0.2);
   back_tilemap[4].render(ctx);
   ctx.restore();
 
   ctx.save();
-  ctx.translate(-camera.x, 0);
+  ctx.translate(0, -camera.y * 0.2);
   back_tilemap[5].render(ctx);
-  ctx.restore();
+  ctx.restore();}
   //Level 3
   // The foreground scrolls in sync with the camera
-  ctx.save();
-  ctx.translate(-camera.x, 0);
+
+  if(level == 2)
+{  ctx.save();
+  ctx.translate(0, -camera.y * 0.2);
   back_tilemap[6].render(ctx);
   ctx.restore();
 
   ctx.save();
-  ctx.translate(-camera.x, 0);
+  ctx.translate(0, -camera.y * 0.2);
   back_tilemap[7].render(ctx);
   ctx.restore();
 
   ctx.save();
-  ctx.translate(-camera.x, 0);
+  ctx.translate(0, -camera.y * 0.2);
   back_tilemap[8].render(ctx);
-  ctx.restore();
+  ctx.restore();}
 }
 
 
@@ -339,7 +402,12 @@ function renderBackgrounds(elapsedTime, ctx) {
 function renderWorld(elapsedTime, ctx) {
     // Render the bullets
     bullets.render(elapsedTime, ctx);
-    targets.render(elapsedTime, ctx);
+    enemy1.render(elapsedTime, ctx);
+    enemy2.render(elapsedTime, ctx);
+    enemy3.render(elapsedTime, ctx);
+    enemy4.render(elapsedTime, ctx);
+    enemy5.render(elapsedTime, ctx);
+    boss.render(elapsedTime, ctx);
     // Render the missiles
     missiles.forEach(function(missile) {
       missile.render(elapsedTime, ctx);
@@ -347,6 +415,8 @@ function renderWorld(elapsedTime, ctx) {
 
     // Render the player
     player.render(elapsedTime, ctx);
+    ctx.fillStyle = 'grey';
+    ctx.fillText("level: "+ level, 20, 20);
 }
 
 /**

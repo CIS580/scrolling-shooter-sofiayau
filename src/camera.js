@@ -27,6 +27,7 @@ function Camera(screen) {
  * @param {Vector} target what the camera is looking at
  */
 Camera.prototype.update = function(target) {
+   this.y = target.y - 200;
   // TODO: Align camera with player
 }
 
